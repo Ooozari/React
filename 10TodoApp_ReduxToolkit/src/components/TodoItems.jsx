@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { updateTodo, deleteTodo, toggleCompleted } from '../features/todoSlice';
+import { updateTodo, deleteTodo, toggleCompleted, setFilterType } from '../features/todoSlice';
 
 function TodoItems() {
   const todos = useSelector((state) => state.todo.todos);
+  const filterType = useSelector ((state) => state.todo.filterType) // defualt to All
   const dispatch = useDispatch();
 
   const [editId, setEditId] = useState(null);
   const [editText, setEditText] = useState('');
   const [showFilter, setShowFilter] = useState(false);
-  const [filterType, setFilterType] = useState('All');
 
   const handleEdit = (todo) => {
     setEditId(todo.id);
@@ -51,19 +51,19 @@ function TodoItems() {
           <ul className={`bg-slate-600 text-xs p-1 rounded-sm ${showFilter ? 'visible' : 'invisible'}`}>
             <li
               className="hover:bg-slate-500 rounded-sm px-1 hover:cursor-pointer"
-              onClick={() => setFilterType('All')}
+              onClick={ () => dispatch(setFilterType('All')) } // dispatch action
             >
               All
             </li>
             <li
               className="hover:bg-slate-500 rounded-sm px-1 hover:cursor-pointer"
-              onClick={() => setFilterType('Completed')}
+              onClick={() => dispatch(setFilterType('Completed'))}
             >
               Completed
             </li>
             <li
               className="hover:bg-slate-500 rounded-sm px-1 hover:cursor-pointer"
-              onClick={() => setFilterType('Un Completed')}
+              onClick={() => dispatch(setFilterType('Un Completed'))}
             >
               Un Completed
             </li>

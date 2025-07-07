@@ -7,9 +7,11 @@ const initialState = {
       id: 1,
       text: 'My First Todo',
       isCompleted: false,
-      isUpdateable: false,
+      // isUpdateable: false, no need for it
     },
   ],
+
+  filterType: 'All'
 };
 
 export const todoSlice = createSlice({
@@ -37,15 +39,22 @@ export const todoSlice = createSlice({
       }
     },
 
+    
     toggleCompleted: (state, action) => {
       const todo = state.todos.find((todo) => todo.id === action.payload.id);
       if (todo) {
         todo.isCompleted = !todo.isCompleted;
       }
     },
+
+    // Setting FilterType 
+    setFilterType: (state, action) => {
+      state.filterType = action.payload
+    }
   },
 });
 
-export const { addTodo, deleteTodo, updateTodo, toggleCompleted } = todoSlice.actions;
+// exporting Indiviual reducers 
+export const { addTodo, deleteTodo, updateTodo, toggleCompleted, setFilterType  } = todoSlice.actions;
 
 export default todoSlice.reducer;
